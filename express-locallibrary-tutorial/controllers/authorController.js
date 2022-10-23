@@ -7,6 +7,7 @@ exports.author_list = function (req, res, next) {
   Author.find()
     .sort([["family_name", "ascending"]])
     .exec(function (err, list_authors) {
+      console.log("list_authors: ", list_authors);
       if (err) {
         return next(err);
       }

@@ -21,6 +21,7 @@ exports.bookinstance_detail = (req, res, next) => {
   BookInstance.findById(req.params.id)
     .populate("book")
     .exec((err, bookinstance) => {
+      console.log("bookinstance: ", bookinstance);
       if (err) {
         return next(err);
       }
