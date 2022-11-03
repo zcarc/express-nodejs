@@ -9,7 +9,10 @@ require("dotenv").config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
+const compression = require("compression");
+const helmet = require("helmet");
 
+// Create the Express application object
 const app = express();
 
 // Set up mongoose connection
@@ -29,6 +32,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(helmet());
+
+app.use(compression()); // Compress all routes
+// Note: For a high-traffic website in production you wouldn't use this middleware.
+// Instead, you would use a reverse proxy like Nginx
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
